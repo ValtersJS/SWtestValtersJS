@@ -74,7 +74,7 @@
       <p>Scandiweb test assignment</p>
     </div>
 
-    <script src="AddScript.js"></script>
+    <script src="AdddScript.js"></script>
   </div>
 </body>
 

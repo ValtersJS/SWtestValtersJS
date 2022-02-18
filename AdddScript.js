@@ -103,16 +103,37 @@ function PAcheck() {
   }
 }
 
+window.onload = function hide() {
+  $(".parentAttr p").hide();
+  $("#Size-mistake").hide();
+  $("#Weight-mistake").hide();
+  $("#height-mistake").hide();
+  $("#width-mistake").hide();
+  $("#length-mistake").hide();
+  $(".product").hide();
+}
+  
+//dynamic form switching
+$("#productType").change(function () {
+  window.type = this.value;
+  $(".product").hide();
+  $("#" + "type_" + this.value).show();
+});
+
 function validatorLookup(val) {
   let validators =
   {
     'dvd': 'DVDValidator',
-    'book': 'BookValidator',
+    'book': 'BookValidator', 
     'furniture': 'FurnitureValidator',
     'none': 'NoneValidator'
   }
   let result = validators[val];
   return result;
 }
-  
 
+//product save button (on click) function
+$("#product_form").submit(function (e) {
+  e.preventDefault();
+  let validator = validatorLookup(type);
+});
