@@ -103,11 +103,16 @@ function PAcheck() {
   }
 }
 
-let validators =
-{
-  'dvd': 'DVDValidator',
-  'book': 'BookValidator',
-  'furniture': 'FurnitureValidator',
-  'none': 'NoneValidator'
+function validatorLookup(val) {
+  let validators =
+  {
+    'dvd': 'DVDValidator',
+    'book': 'BookValidator',
+    'furniture': 'FurnitureValidator',
+    'none': 'NoneValidator'
+  }
+  let result = validators[val];
+  return result;
 }
+  
 
