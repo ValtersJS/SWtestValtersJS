@@ -8,8 +8,9 @@ switch(isset($_POST))
       Funcs::deleteItems($delValues);
     break;
 
-    case isset($_POST['B']):
-      //do something  
+    case isset($_POST['attributes']):
+      $product = $_POST['attributes'];
+      ItemRepository::setRow($product);
     break;
     
     case isset($_POST['C']):

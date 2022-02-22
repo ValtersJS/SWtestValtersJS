@@ -9,11 +9,6 @@ abstract class Item
   protected $price;
   protected $attribute;
 
-
-  // abstract static protected function deleteItems();
-
-  // abstract static protected function saveItems();
-
   public function getId()
   {
     return $this->id;

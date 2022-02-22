@@ -1,17 +1,109 @@
-function emptyCheck(field) {
+class Item {
+  constructor(sku, name, price) {
+    this.sku = sku
+    this.name = name
+    this.price = price
+  }
+  
+  emptyCheck2(value) {
+    return value.trim() != ""
+  }
 
-  if (!field.val().trim()) {
-    $("#" + field.attr("id") + "-" + "mistake").show();
-    field.addClass("validation");
-    return false;
+  validate() {
+    var isNameEmpty = this.emptyCheck2(this.name)
+    var isSKUEmpty = this.emptyCheck2(this.sku)
+    var isPriceEmpty = this.emptyCheck2(this.price)
 
-  } else {
-    console.log(this.id);
-    $("#" + field.attr("id") + "-" + "mistake").hide();
-    field.removeClass("validation");
-    return true;
+    return !isNameEmpty && !isSKUEmpty && !isPriceEmpty 
+  }
+
+  serialize() {
+    return [this.sku, this.name, this.price]
   }
 }
+
+class DVD extends Item {
+  constructor(sku, name, price, size) {
+    super(sku, name, price)
+    this.size = size
+  }
+
+  validate() {
+    var isParentValid = super.validate()
+    var isSizeEmpty = this.emptyCheck2(this.size)
+
+    return isParentValid && !isSizeEmpty
+  }
+
+  serialize() {
+    var attributes = super.serialize()
+    attributes.push(this.price)
+    return attributes
+  }
+}
+
+class Book extends Item {
+  constructor(sku, name, price, weight) {
+    super(sku, name, price)
+    this.weight = weight
+  }
+
+  validate() {
+    var isParentValid = super.validate()
+    var isWeightEmpty = this.emptyCheck2(this.weight)
+
+    return isParentValid && !isWeightEmpty
+  }
+
+  serialize() {
+    var attributes = super.serialize()
+    attributes.push(this.price)
+    return attributes
+  }
+}
+
+class Furniture extends Item {
+  constructor(sku, name, price, width, height, length){
+    super(sku, name, price)
+    this.width = width
+    this.height = height
+    this.length = length
+  }
+
+  validate() {
+    var isParentValid = super.validate()
+    var isWidthEmpty = this.emptyCheck2(this.width)
+    var isHeightEmpty = this.emptyCheck2(this.height)
+    var isLengthEmpty = this.emptyCheck2(this.length)
+
+    return isParentValid && !isWidthEmpty && !isHeightEmpty && !isLengthEmpty
+  }
+
+  serialize() {
+    var attributes = super.serialize()
+    attributes.push(this.width, this.height, this.length)
+    return attributes
+  }
+}
+
+function emptyCheck2(value) {
+  return value.trim() != ""
+}
+
+// function emptyCheck(field) {
+
+//   if (!field.val().trim()) {
+//     $("#" + field.attr("id") + "-" + "mistake").show();
+//     field.addClass("validation");
+//     return false;
+
+//   } else {
+//     console.log(this.id);
+//     $("#" + field.attr("id") + "-" + "mistake").hide();
+//     field.removeClass("validation");
+//     return true;
+//   }
+// }
 
 function priceCheck() {
   var priceField = $("#price").val().trim();
@@ -113,6 +205,20 @@ window.onload = function hide() {
   $(".product").hide();
 }
   
+function makeProduct(productType) {
+  var skuField = $("#sku").val().trim();
+  var nameField = $("#name").val().trim();
+  var priceField = $("#price").val().trim();
+
+  var product = null
+  switch (productType) {
+    case "DVD": new DVD(skuField, nameField, priceField)
+    case "Book": new Book(skuField, nameField, priceField)
+    case "Furniture": new Furniture(skuField, nameField, priceField)
+  }
+  return product
+}
+
 //dynamic form switching
 $("#productType").change(function () {
   window.type = this.value;
@@ -135,5 +241,16 @@ function validatorLookup(val) {
 //product save button (on click) function
 $("#product_form").submit(function (e) {
   e.preventDefault();
-  let validator = validatorLookup(type);
+  var product = makeProduct(this.value)
+  var isValid = product.validate()
+  var attributes = product.serialize()
+
+  $.post("FrontController.php", {
+      product: JSON.stringify(attributes)
+    }, function () {
+      console.log("all good");
+      window.location.href = "http://localhost/swtest_v1/ListPage/Index.php";
+    }).fail(function () {
+      console.log("fail");
+    });
 });

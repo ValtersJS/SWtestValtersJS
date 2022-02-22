@@ -4,6 +4,13 @@ include_once 'C:\xampp\htdocs\swtest_v1\Item.php';
 class Dvd extends Item {
   protected $size;
   
+  public function getSize() {
+    return $this->getAttribute();
+  }
+  public function setSize($size) {
+    $this->setAttribute($size);
+  }
+
   // protected function listItems() 
   // {
   //   return;
