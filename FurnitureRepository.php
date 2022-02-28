@@ -9,6 +9,7 @@ class FurnitureRepository extends ItemRepository
     // Set properties for $dvd from $row
     return $furniture;
   }
+  
   function deleteById($id);
   function create($value);
 }

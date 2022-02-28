@@ -36,12 +36,24 @@ abstract class ItemRepository implements Repository
     } 
   }
 
-  protected function getRow() {
+  public function getAll() {
     $sql = "SELECT * FROM itemss";
     $result = ItemRepository::connect()->query($sql);
     // $arr = array();
-    return $result->fetch();
+    // return $result->fetch();
+    $arr = array();
+    while($row = $result->fetch()) {
+      $obj = new FetchItem();
+      $obj->setId($row['ID']);
+      $obj->setSKU($row['Sku']);
+      $obj->setName($row['Name']);
+      $obj->setPrice($row['Price']);
+      $obj->setAttribute($row['Attribute']);
+      array_push($arr, $obj);
+    }
+      return $arr;
   }
+  
   protected function setRow($type, $name, $sku, $attritbute) {
     // SQL send product to db
   }

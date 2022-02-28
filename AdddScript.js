@@ -6,7 +6,7 @@ class Item {
   }
   
   emptyCheck2(value) {
-    return value.trim() != ""
+    return value != ""
   }
 
   validate() {
@@ -23,29 +23,32 @@ class Item {
 }
 
 class DVD extends Item {
-  constructor(sku, name, price, size) {
+  constructor(sku, name, price, size, type) {
     super(sku, name, price)
-    this.size = size
+    this.size = $("#size").val().trim()
+    this.type = 1
+
   }
 
   validate() {
     var isParentValid = super.validate()
     var isSizeEmpty = this.emptyCheck2(this.size)
 
-    return isParentValid && !isSizeEmpty
+    return !isParentValid && !isSizeEmpty
   }
 
   serialize() {
     var attributes = super.serialize()
-    attributes.push(this.price)
+    attributes.push(this.size)
     return attributes
   }
 }
 
 class Book extends Item {
-  constructor(sku, name, price, weight) {
+  constructor(sku, name, price, weight, type) {
     super(sku, name, price)
-    this.weight = weight
+    this.weight = $("#weight").val().trim()
+    this.type = 2
   }
 
   validate() {
@@ -63,11 +66,12 @@ class Book extends Item {
 }
 
 class Furniture extends Item {
-  constructor(sku, name, price, width, height, length){
+  constructor(sku, name, price, width, height, length, type){
     super(sku, name, price)
-    this.width = width
-    this.height = height
-    this.length = length
+    this.width = $("#width").val().trim()
+    this.height = $("#height").val().trim()
+    this.length = $("#length").val().trim()
+    this.type = 3
   }
 
   validate() {
@@ -210,13 +214,13 @@ function makeProduct(productType) {
   var nameField = $("#name").val().trim();
   var priceField = $("#price").val().trim();
 
-  var product = null
+  // var prod = null
   switch (productType) {
-    case "DVD": new DVD(skuField, nameField, priceField)
-    case "Book": new Book(skuField, nameField, priceField)
-    case "Furniture": new Furniture(skuField, nameField, priceField)
+    case "DVD": return new DVD(skuField, nameField, priceField)
+    case "Book": return new Book(skuField, nameField, priceField)
+    case "Furniture": return new Furniture(skuField, nameField, priceField)
   }
-  return product
+  // return prod
 }
 
 //dynamic form switching
@@ -241,15 +245,19 @@ function validatorLookup(val) {
 //product save button (on click) function
 $("#product_form").submit(function (e) {
   e.preventDefault();
-  var product = makeProduct(this.value)
+  
+  var product = makeProduct(type)
   var isValid = product.validate()
   var attributes = product.serialize()
+  
 
   $.post("FrontController.php", {
-      product: JSON.stringify(attributes)
+      product: JSON.stringify(product)
     }, function () {
       console.log("all good");
-      window.location.href = "http://localhost/swtest_v1/ListPage/Index.php";
+      console.log(isValid)
+      console.log(product)
+      window.location.href = "http://localhost/swtest_v1/Index.php";
     }).fail(function () {
       console.log("fail");
     });
