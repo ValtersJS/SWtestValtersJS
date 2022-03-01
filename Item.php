@@ -1,13 +1,16 @@
 <?php
 // include_once 'C:\xampp\htdocs\swtest_v1\Funcs.php';
 
-abstract class Item
+class Item
 {
   protected $id;
+  protected $type;
   protected $sku;
   protected $name;
   protected $price;
   protected $attribute;
+
+  
 
   public function getId()
   {
@@ -19,6 +22,16 @@ abstract class Item
     $this->id = $id;
 
     return $this;
+  }
+
+  public function getType()
+  {
+    return $this->type;
+  }
+
+  public function setType($type)
+  {
+    $this->type = $type;
   }
 
   public function getSku()

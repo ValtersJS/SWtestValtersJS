@@ -1,11 +1,11 @@
 <?php
-require_once 'C:\xampp\htdocs\swtest_v1\Funcs.php';
+require_once 'ItemRepo.php';
 
-class TableGen extends Funcs
+class TableGen 
 {
   public static function genTable()
   {
-    $items = parent::getItems();
+    $items = ItemRepo::getAll();
 
     echo "<table class='itemTable' id='table'>";
     $i = 0;

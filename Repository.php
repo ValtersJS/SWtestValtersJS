@@ -4,9 +4,9 @@
 interface Repository
 {
   function connect();
-  function getAll();
-  function deleteById($id);
-  function create($value);
+  static function getAll();
+  // function deleteById($id);
+  // function create($value);
 }
 
 

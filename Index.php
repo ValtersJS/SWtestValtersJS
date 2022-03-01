@@ -29,7 +29,7 @@
           include_once 'C:\xampp\htdocs\swtest_v1\Funcs.php';
           include_once 'C:\xampp\htdocs\swtest_v1\TableGen.php';
 
-          // TableGen::genTable();
+          TableGen::genTable();
           
           
           

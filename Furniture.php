@@ -5,6 +5,14 @@ class Furniture extends Item {
   protected $width;
   protected $height;
   protected $length;
+
+  public function save($sku, $name, $price, $width, $height, $length, $type) 
+  {
+    $this->setSku($sku);
+    $this->setName($name);
+    $this->setPrice($price);
+    $this->setAttribute($width + "x" + $height + "x" + $length);
+  }
   
   // protected function listItems() 
   // {
