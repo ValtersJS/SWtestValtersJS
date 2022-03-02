@@ -2,19 +2,115 @@ class Item {
   constructor(sku, name, price) {
     this.sku = sku;
     this.name = name;
-    this.price = price;
+    this.price = price + "$";
   }
 
-  emptyCheck2(value) {
-    return value != "";
+  emptyCheck(value) {
+    if (value.trim() != "") {
+      return true;
+    }else {
+      return false;
+    }
+  }
+
+  priceCheck() {
+    var priceField = $("#price").val().trim();
+    var priceValid = new RegExp("^\\d{1,5}(\\.\\d{2})$|^\\d{1,5}$");
+    if (priceValid.test(priceField) == true) {
+      return true;
+    }else {
+      return false;
+    }
+  }
+
+  sizeCheck() {
+    var sizeField = $("#size").val().trim();
+    var sizeValid = new RegExp("^\\d{1,3}$");
+    if (sizeValid.test(sizeField) == true) {
+      $("#size").removeClass("validation");
+      return true;
+    } else {
+      $("#size").addClass("validation");
+      return false;
+    }
+  }
+  
+  dimensionCheck() {
+    var heightField = $("#height").val().trim();
+    var widthField = $("#width").val().trim();
+    var lengthField = $("#length").val().trim();
+    var dimensionValid = new RegExp("^\\d{1,4}$");
+    var i = 0;
+  
+    $("#type_Furniture input").each(function () {
+      if (dimensionValid.test($(this).val().trim())) {
+        i++;
+        $(this).removeClass("validation");
+      } else {
+        $(this).addClass("validation");
+      }
+    });
+    if (i == 3) {
+      return true;
+    }
+  }
+  
+  weightCheck() {
+    var weightField = $("#weight").val().trim();
+    var weightValid = new RegExp("^\\d{1,3}$");
+    if (weightValid.test(weightField) == true) {
+      $("#weight").removeClass("validation");
+      return true;
+    } else {
+      $("#weight").addClass("validation");
+      return false;
+    }
+  }
+  
+  pAcheck() {
+    var count = 0;
+    var pCheck = false;
+    var fieldErrorName;
+    var pID;
+  
+    $(".parentAttr input").each(function () {
+      fieldErrorName = $(this).attr("name");
+      pID = "#" + fieldErrorName + "-" + "mistake";
+  
+      if (!this.value.trim()) {
+        $(this).addClass("validation");
+        $(pID).show();
+        console.log(pID);
+      } else {
+        $(this).removeClass("validation");
+        $(pID).hide();
+        count++;
+      }
+    });
+  
+    if (!this.priceCheck()) {
+      $("#price").addClass("validation");
+      // $(pID).show();
+    } else {
+      $("#price").removeClass("validation");
+      // $(pID).hide();
+      pCheck = true;
+    }
+  
+    if (count == 3 && pCheck == true) {
+      return true;
+    }
   }
 
   validate() {
-    var isNameEmpty = this.emptyCheck2(this.name);
-    var isSKUEmpty = this.emptyCheck2(this.sku);
-    var isPriceEmpty = this.emptyCheck2(this.price);
+    // var isNameEmpty = this.emptyCheck(this.name);
+    // var isSKUEmpty = this.emptyCheck(this.sku);
+    // var isPriceEmpty = this.emptyCheck(this.price);
+    var isParentCorrect = this.pAcheck();
+    var isPriceCorrect = this.priceCheck(this.price);
 
-    return !isNameEmpty && !isSKUEmpty && !isPriceEmpty;
+    // return isNameEmpty && isSKUEmpty && isPriceEmpty;
+    return isParentCorrect && isPriceCorrect;
   }
 
   serialize() {
@@ -32,9 +128,10 @@ class DVD extends Item {
 
   validate() {
     var isParentValid = super.validate();
-    var isSizeEmpty = this.emptyCheck2(this.size);
+    var isSizeEmpty = this.emptyCheck(this.size);
+    var isSizeCorrect = this.sizeCheck();
 
-    return !isParentValid && !isSizeEmpty;
+    return isParentValid && isSizeEmpty && isSizeCorrect;
   }
 
   serialize() {
@@ -54,7 +151,8 @@ class Book extends Item {
 
   validate() {
     var isParentValid = super.validate();
-    var isWeightEmpty = this.emptyCheck2(this.weight);
+    var isWeightEmpty = this.emptyCheck(this.weight);
+    var isWeightCorrect = this.weightCheck();
 
     return !isParentValid && !isWeightEmpty;
   }
@@ -77,9 +175,10 @@ class Furniture extends Item {
 
   validate() {
     var isParentValid = super.validate();
-    var isWidthEmpty = this.emptyCheck2(this.width);
-    var isHeightEmpty = this.emptyCheck2(this.height);
-    var isLengthEmpty = this.emptyCheck2(this.length);
+    var isWidthEmpty = this.emptyCheck(this.width);
+    var isHeightEmpty = this.emptyCheck(this.height);
+    var isLengthEmpty = this.emptyCheck(this.length);
+    var isDimensionCorrect = this.dimensionCheck();
 
     return isParentValid && !isWidthEmpty && !isHeightEmpty && !isLengthEmpty;
   }
@@ -88,114 +187,6 @@ class Furniture extends Item {
     var attributes = super.serialize();
     attributes.push(this.width, this.height, this.length);
     return attributes;
-  }
-}
-
-function emptyCheck2(value) {
-  return value.trim() != "";
-}
-
-// function emptyCheck(field) {
-
-//   if (!field.val().trim()) {
-//     $("#" + field.attr("id") + "-" + "mistake").show();
-//     field.addClass("validation");
-//     return false;
-
-//   } else {
-//     console.log(this.id);
-//     $("#" + field.attr("id") + "-" + "mistake").hide();
-//     field.removeClass("validation");
-//     return true;
-//   }
-// }
-
-function priceCheck() {
-  var priceField = $("#price").val().trim();
-  var priceValid = new RegExp("^\\d{1,5}(\\.\\d{2})$|^\\d{1,5}$");
-  if (priceValid.test(priceField) == true) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function sizeCheck() {
-  var sizeField = $("#size").val().trim();
-  var sizeValid = new RegExp("^\\d{1,3}$");
-  if (sizeValid.test(sizeField) == true) {
-    $("#size").removeClass("validation");
-    return true;
-  } else {
-    $("#size").addClass("validation");
-    return false;
-  }
-}
-
-function dimensionCheck() {
-  var heightField = $("#height").val().trim();
-  var widthField = $("#width").val().trim();
-  var lengthField = $("#length").val().trim();
-  var dimensionValid = new RegExp("^\\d{1,4}$");
-  var i = 0;
-
-  $("#type_Furniture input").each(function () {
-    if (dimensionValid.test($(this).val().trim())) {
-      i++;
-      $(this).removeClass("validation");
-    } else {
-      $(this).addClass("validation");
-    }
-  });
-  if (i == 3) {
-    return true;
-  }
-}
-
-function weightCheck() {
-  var weightField = $("#weight").val().trim();
-  var weightValid = new RegExp("^\\d{1,3}$");
-  if (weightValid.test(weightField) == true) {
-    $("#weight").removeClass("validation");
-    return true;
-  } else {
-    $("#weight").addClass("validation");
-    return false;
-  }
-}
-
-function PAcheck() {
-  var count = 0;
-  var pCheck = false;
-  var fieldErrorName;
-  var pID;
-
-  $(".parentAttr input").each(function () {
-    fieldErrorName = $(this).attr("name");
-    pID = "#" + fieldErrorName + "-" + "mistake";
-
-    if (!this.value.trim()) {
-      $(this).addClass("validation");
-      $(pID).show();
-      console.log(pID);
-    } else {
-      $(this).removeClass("validation");
-      $(pID).hide();
-      count++;
-    }
-  });
-
-  if (!priceCheck()) {
-    $("#price").addClass("validation");
-    // $(pID).show();
-  } else {
-    $("#price").removeClass("validation");
-    // $(pID).hide();
-    pCheck = true;
-  }
-
-  if (count == 3 && pCheck == true) {
-    return true;
   }
 }
 
@@ -214,7 +205,6 @@ function makeProduct(productType) {
   var nameField = $("#name").val().trim();
   var priceField = $("#price").val().trim();
 
-  // var prod = null
   switch (productType) {
     case "DVD":
       return new DVD(skuField, nameField, priceField);
@@ -223,49 +213,39 @@ function makeProduct(productType) {
     case "Furniture":
       return new Furniture(skuField, nameField, priceField);
   }
-  // return prod
 }
 
 //dynamic form switching
 $("#productType").change(function () {
-  window.typee = this.value;
+  window.type = this.value;
   $(".product").hide();
   $("#" + "type_" + this.value).show();
 });
-
-function validatorLookup(val) {
-  let validators = {
-    dvd: "DVDValidator",
-    book: "BookValidator",
-    furniture: "FurnitureValidator",
-    none: "NoneValidator",
-  };
-  let result = validators[val];
-  return result;
-}
 
 //product save button (on click) function
 $("#product_form").submit(function (e) {
   e.preventDefault();
 
-  var product = makeProduct(typee);
+  var product = makeProduct(type);
   var isValid = product.validate();
   var attributes = product.serialize();
 
-  $.post(
-    "FrontController.php",
-    {
-      product: JSON.stringify(product),
-    },
-    function (status) {
-      console.log(status);
-      console.log("all good");
-      console.log(isValid);
-      console.log(product);
-      console.log(attributes);
-      window.location.href = "http://localhost/swtest_v1/Index.php";
-    }
-  ).fail(function () {
-    console.log("fail");
-  });
+  if (isValid) {
+    $.post(
+      "FrontController.php",
+      {
+        product: JSON.stringify(product),
+      },
+      function (status) {
+        console.log(status);
+        console.log("all good");
+        console.log(isValid);
+        console.log(product);
+        console.log(attributes);
+        window.location.href = "http://localhost/swtest_v1/Index.php";
+      }
+    ).fail(function () {
+      console.log("fail");
+    });
+  }
 });
