@@ -16,9 +16,9 @@ abstract class ItemRepository implements Repository
 
   public static abstract function getAll();
 
-  // public abstract function deleteById();
+  public static abstract function deleteById($delValues);
   
-  protected static abstract function setRow($type, $sku, $name, $price, $attritbute);
+  protected static abstract function setRow($item);
 }
 
 

@@ -19,7 +19,7 @@
 
     <div class="header-buttons">
       <input type="submit" form="product_form" value="Save">
-      <button><a href="http://localhost/swtest_v1/NewIndex.php">Cancel</a></button>
+      <button><a href="http://localhost/swtest_v1/Index.php">Cancel</a></button>
     </div>
 
     <div class="content">

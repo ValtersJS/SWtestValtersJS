@@ -9,30 +9,33 @@ include_once "Furniture.php";
 
 switch(isset($_POST))
 {
-    case isset($_POST['delValues']):
-      $delValues = $_POST['delValues'];
-      Funcs::deleteItems($delValues);
-    break;
-
     case isset($_POST['product']):
-      $product = $_POST['product'];
-      switch($product['type']) {
+      $productJSON = ($_POST['product']);
+      $product = json_decode($productJSON);
+      switch($product->{'type'}) {
         case 1:
           $obj = new Dvd();
-          $obj->save($product[0], $product[1], $product[2], $product[3]);
+          $item = $obj->save($product->{'type'}, $product->{'sku'}, $product->{'name'}, $product->{'price'}, $product->{'size'});
+          ItemRepo::setRow($item);
           break;
         case 2: 
           $obj = new Book();
-          $obj->save($product[0], $product[1], $product[2], $product[3]);
+          $item = $obj->save($product->{'type'}, $product->{'sku'}, $product->{'name'}, $product->{'price'}, $product->{'weight'});
+          ItemRepo::setRow($item);
           break;
         case 3:
           $obj = new Furniture();
-          $obj->save($product[0], $product[1], $product[2], $product[3], $product[4], $product[5], $product[6]);
+          $item = $obj->save($product->{'type'}, $product->{'sku'}, $product->{'name'}, $product->{'price'},
+          $product->{'height'},
+          $product->{'width'},
+          $product->{'length'});
+          ItemRepo::setRow($item);
           break;
       }
     break;
     
-    case isset($_POST['C']):
-      //do something
+    case isset($_POST['delValues']):
+      $delValues = $_POST['delValues'];
+      ItemRepo::deleteById($delValues);
     break;
 }

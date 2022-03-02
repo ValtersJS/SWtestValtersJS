@@ -38,12 +38,15 @@ class ItemRepo extends ItemRepository
       switch($row['Type']) {
         case 1:
           $obj = new Dvd();
+          $attrTag = "Size: ";
           break;
         case 2: 
           $obj = new Book();
+          $attrTag = "Weight: ";
           break;
         case 3:
           $obj = new Furniture();
+          $attrTag = "Dimensions: ";
           break;
       }
 
@@ -57,10 +60,26 @@ class ItemRepo extends ItemRepository
       return $arr;
   }
   
-  public static function setRow($type, $sku, $name, $price, $attritbute) {
+  public static function setRow($item) {
     // SQL send product to db
-    echo "ha";
+    $request = new ItemRepo();
+    $type = $item->getType();
+    $sku = $item->getSku();
+    $name = $item->getName();
+    $price = $item->getPrice();
+    $attribute = $item->getAttribute();
+
     $sql = "INSERT INTO newitems
-    VALUES (NULL, )";
+    VALUES (NULL, '$type', '$sku', '$name', '$price', '$attribute'
+    )";
+
+    $request->connect()->query($sql);
+  }
+
+  public static function deleteById($delValues)
+  {
+    $request = new ItemRepo();
+    $sql = "DELETE FROM newitems WHERE ID in ($delValues)";
+    $request->connect()->query($sql);
   }
 }

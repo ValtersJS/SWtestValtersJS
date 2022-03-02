@@ -25,7 +25,8 @@ class Item {
 class DVD extends Item {
   constructor(sku, name, price, size, type) {
     super(sku, name, price);
-    this.size = $("#size").val().trim();
+    this.size = $("#size").val().trim() + "MB";
+    this.size = "Size: " + this.size;
     this.type = 1;
   }
 
@@ -46,7 +47,8 @@ class DVD extends Item {
 class Book extends Item {
   constructor(sku, name, price, weight, type) {
     super(sku, name, price);
-    this.weight = $("#weight").val().trim();
+    this.weight = $("#weight").val().trim() + "KG";
+    this.weight = "Weight: " + this.weight;
     this.type = 2;
   }
 
@@ -54,12 +56,12 @@ class Book extends Item {
     var isParentValid = super.validate();
     var isWeightEmpty = this.emptyCheck2(this.weight);
 
-    return isParentValid && !isWeightEmpty;
+    return !isParentValid && !isWeightEmpty;
   }
 
   serialize() {
     var attributes = super.serialize();
-    attributes.push(this.price);
+    attributes.push(this.weight);
     return attributes;
   }
 }
@@ -226,7 +228,7 @@ function makeProduct(productType) {
 
 //dynamic form switching
 $("#productType").change(function () {
-  window.type = this.value;
+  window.typee = this.value;
   $(".product").hide();
   $("#" + "type_" + this.value).show();
 });
@@ -246,7 +248,7 @@ function validatorLookup(val) {
 $("#product_form").submit(function (e) {
   e.preventDefault();
 
-  var product = makeProduct(type);
+  var product = makeProduct(typee);
   var isValid = product.validate();
   var attributes = product.serialize();
 
@@ -255,7 +257,8 @@ $("#product_form").submit(function (e) {
     {
       product: JSON.stringify(product),
     },
-    function () {
+    function (status) {
+      console.log(status);
       console.log("all good");
       console.log(isValid);
       console.log(product);

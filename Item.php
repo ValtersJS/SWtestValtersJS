@@ -10,8 +10,6 @@ class Item
   protected $price;
   protected $attribute;
 
-  
-
   public function getId()
   {
     return $this->id;

@@ -31,4 +31,25 @@ class TableGen
     }
     echo "</table>";
   }
+
+  public static function genTablee()
+  {
+    $items = ItemRepo::getAll();
+
+    echo "<table class='itemTable' id='table'>";
+    $i = 0;
+
+    foreach ($items as $obj => $objProps) {
+      $itemID = $objProps->getId();
+      echo "fail";
+      $i++;
+
+      if ($i >= 4) {
+        echo "</tr>";
+        echo "<tr>";
+        $i = 0;
+      }
+    }
+    echo "</table>";
+  }
 }
