@@ -121,8 +121,7 @@ class Item {
 class DVD extends Item {
   constructor(sku, name, price, size, type) {
     super(sku, name, price);
-    this.size = $("#size").val().trim() + "MB";
-    this.size = "Size: " + this.size;
+    this.size = $("#size").val().trim();
     this.type = 1;
   }
 
@@ -130,22 +129,22 @@ class DVD extends Item {
     var isParentValid = super.validate();
     var isSizeEmpty = this.emptyCheck(this.size);
     var isSizeCorrect = this.sizeCheck();
-
+    (!isSizeEmpty) ? $("#Size-mistake").show() : $("#Size-mistake").hide();
+    
     return isParentValid && isSizeEmpty && isSizeCorrect;
   }
 
-  serialize() {
-    var attributes = super.serialize();
-    attributes.push(this.size);
-    return attributes;
+  prepare() {
+    var isValid = this.validate();
+    this.size = "Size: " + this.size + "MB";
+    return isValid;
   }
 }
 
 class Book extends Item {
   constructor(sku, name, price, weight, type) {
     super(sku, name, price);
-    this.weight = $("#weight").val().trim() + "KG";
-    this.weight = "Weight: " + this.weight;
+    this.weight = $("#weight").val().trim();
     this.type = 2;
   }
 
@@ -153,14 +152,15 @@ class Book extends Item {
     var isParentValid = super.validate();
     var isWeightEmpty = this.emptyCheck(this.weight);
     var isWeightCorrect = this.weightCheck();
+    (!isWeightEmpty) ? $("#Weight-mistake").show() : $("#Weight-mistake").hide();
 
-    return !isParentValid && !isWeightEmpty;
+    return isParentValid && isWeightEmpty && isWeightCorrect;
   }
 
-  serialize() {
-    var attributes = super.serialize();
-    attributes.push(this.weight);
-    return attributes;
+  prepare() {
+    var isValid = this.validate();
+    this.weight = "Weight: " + this.weight + "KG";
+    return isValid;
   }
 }
 
@@ -179,14 +179,15 @@ class Furniture extends Item {
     var isHeightEmpty = this.emptyCheck(this.height);
     var isLengthEmpty = this.emptyCheck(this.length);
     var isDimensionCorrect = this.dimensionCheck();
+    (!isWidthEmpty) ? $("#Width-mistake").show() : $("#Width-mistake").hide();
+    (!isHeightEmpty) ? $("#Height-mistake").show() : $("#Height-mistake").hide();
+    (!isLengthEmpty) ? $("#Length-mistake").show() : $("#Length-mistake").hide();
 
-    return isParentValid && !isWidthEmpty && !isHeightEmpty && !isLengthEmpty;
+    return isParentValid && isWidthEmpty && isHeightEmpty && isLengthEmpty;
   }
 
-  serialize() {
-    var attributes = super.serialize();
-    attributes.push(this.width, this.height, this.length);
-    return attributes;
+  prepare() {
+    return this.validate();
   }
 }
 
@@ -194,9 +195,9 @@ window.onload = function hide() {
   $(".parentAttr p").hide();
   $("#Size-mistake").hide();
   $("#Weight-mistake").hide();
-  $("#height-mistake").hide();
-  $("#width-mistake").hide();
-  $("#length-mistake").hide();
+  $("#Height-mistake").hide();
+  $("#Width-mistake").hide();
+  $("#Length-mistake").hide();
   $(".product").hide();
 };
 
@@ -225,27 +226,29 @@ $("#productType").change(function () {
 //product save button (on click) function
 $("#product_form").submit(function (e) {
   e.preventDefault();
+  if(typeof type != "undefined") {
+    var product = makeProduct(type);
+    // var isValid = product.validate();
+    var isValid = product.prepare();
+    // var attributes = product.serialize();
 
-  var product = makeProduct(type);
-  var isValid = product.validate();
-  var attributes = product.serialize();
-
-  if (isValid) {
-    $.post(
-      "FrontController.php",
-      {
-        product: JSON.stringify(product),
-      },
-      function (status) {
-        console.log(status);
-        console.log("all good");
-        console.log(isValid);
-        console.log(product);
-        console.log(attributes);
-        window.location.href = "http://localhost/swtest_v1/Index.php";
-      }
-    ).fail(function () {
-      console.log("fail");
-    });
+    if (isValid) {
+      $.post(
+        "FrontController.php",
+        {
+          product: JSON.stringify(product),
+        },
+        function (status) {
+          console.log(status);
+          console.log("all good");
+          console.log(isValid);
+          console.log(product);
+          // console.log(attributes);
+          window.location.href = "http://localhost/swtest_v1/Index.php";
+        }
+      ).fail(function () {
+        console.log("fail");
+      });
+    }
   }
 });

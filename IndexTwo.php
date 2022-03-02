@@ -59,11 +59,11 @@
 
         <div class="product" name="Dimension" id="type_Furniture">
           <label>Height (CM)</label> <input type="text" name="Atribute" id="height" autocomplete="off">
-          <p id="height-mistake">Please, submit required data</p><br>
+          <p id="Height-mistake">Please, submit required data</p><br>
           <label>Width (CM)</label> <input type="text" name="Atribute" id="width" autocomplete="off">
-          <p id="width-mistake">Please, submit required data</p><br>
+          <p id="Width-mistake">Please, submit required data</p><br>
           <label>Length (CM)</label> <input type="text" name="Atribute" id="length" autocomplete="off">
-          <p id="length-mistake">Please, submit required data</p><br>
+          <p id="Length-mistake">Please, submit required data</p><br>
           <p>Please provide dimensions in HxWxL</p>
         </div>
       </form>
