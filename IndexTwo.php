@@ -18,8 +18,8 @@
     </div>
 
     <div class="header-buttons">
-      <input type="submit" form="product_form" value="Save">
-      <button><a href="http://localhost/swtest_v1/Index.php">Cancel</a></button>
+      <input type="submit" class="Save" form="product_form" value="Save">
+      <input type="button" class="Cancel" onclick="location.href='http://localhost/swtest_v1/Index.php';" value="Cancel" />
     </div>
 
     <div class="content">

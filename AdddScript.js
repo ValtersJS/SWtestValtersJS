@@ -103,13 +103,9 @@ class Item {
   }
 
   validate() {
-    // var isNameEmpty = this.emptyCheck(this.name);
-    // var isSKUEmpty = this.emptyCheck(this.sku);
-    // var isPriceEmpty = this.emptyCheck(this.price);
     var isParentCorrect = this.pAcheck();
     var isPriceCorrect = this.priceCheck(this.price);
 
-    // return isNameEmpty && isSKUEmpty && isPriceEmpty;
     return isParentCorrect && isPriceCorrect;
   }
 
@@ -243,7 +239,6 @@ $("#product_form").submit(function (e) {
           console.log("all good");
           console.log(isValid);
           console.log(product);
-          // console.log(attributes);
           window.location.href = "http://localhost/swtest_v1/Index.php";
         }
       ).fail(function () {
