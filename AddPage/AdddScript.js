@@ -224,13 +224,11 @@ $("#product_form").submit(function (e) {
   e.preventDefault();
   if(typeof type != "undefined") {
     var product = makeProduct(type);
-    // var isValid = product.validate();
     var isValid = product.prepare();
-    // var attributes = product.serialize();
 
     if (isValid) {
       $.post(
-        "FrontController.php",
+        "../Core/FrontController.php",
         {
           product: JSON.stringify(product),
         },
@@ -239,7 +237,7 @@ $("#product_form").submit(function (e) {
           console.log("all good");
           console.log(isValid);
           console.log(product);
-          window.location.href = "http://localhost/swtest_v1/Index.php";
+          window.location.href = "../Listpage/Index.php";
         }
       ).fail(function () {
         console.log("fail");

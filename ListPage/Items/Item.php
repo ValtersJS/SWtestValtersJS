@@ -1,5 +1,6 @@
 <?php
-// include_once 'C:\xampp\htdocs\swtest_v1\Funcs.php';
+
+namespace App\ListPage\Items;
 
 class Item
 {
@@ -43,7 +44,7 @@ class Item
 
     return $this;
   }
-  
+
   public function getName()
   {
     return $this->name;
@@ -67,15 +68,14 @@ class Item
 
     return $this;
   }
- 
+
   public function getAttribute()
   {
     return $this->attribute;
   }
- 
-  public function setAttribute($attribute) {
+
+  public function setAttribute($attribute)
+  {
     $this->attribute = $attribute;
   }
 }
-
-

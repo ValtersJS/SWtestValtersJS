@@ -7,7 +7,7 @@
   <title>Product Add</title>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <style><?php include 'C:\xampp\htdocs\swtest_v1\scss\Add\ProdAdd.css'; ?></style> 
+  <style><?php include '..\scss\Add\ProdAdd.css'; ?></style> 
 </head>
 
 <Body>
@@ -19,7 +19,7 @@
 
     <div class="header-buttons">
       <input type="submit" class="Save" form="product_form" value="Save">
-      <input type="button" class="Cancel" onclick="location.href='http://localhost/swtest_v1/Index.php';" value="Cancel" />
+      <input type="button" class="Cancel" onclick="location.href='../ListPage/Index.php';" value="Cancel" />
     </div>
 
     <div class="content">

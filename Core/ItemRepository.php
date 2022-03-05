@@ -1,13 +1,17 @@
 <?php
-include_once "Item.php";
-include_once "Dvd.php";
-include_once "Book.php";
-include_once "Furniture.php";
-include_once "Repository.php";
-include_once "ItemRepository.abstract.php";
 
+namespace App\Core;
 
-class ItemRepo extends ItemRepository
+use App\Core\AbstractItemRepository, PDO, PDOException;
+use App\ListPage\Items\{Item, Dvd, Book, Furniture};
+
+include_once "AbstractItemRepository.php";
+include_once "..\ListPage\Items\Item.php";
+include_once "..\ListPage\Items\Dvd.php";
+include_once "..\ListPage\Items\Book.php";
+include_once "..\ListPage\Items\Furniture.php";
+
+class ItemRepository extends AbstractItemRepository
 {
   protected $dbServername;
   protected $dbUsername;
@@ -15,32 +19,33 @@ class ItemRepo extends ItemRepository
   protected $dbName;
   protected $charset = "utf8mb4";
 
-  public function connect() {
-    // create connection w/ constructor data
+  public function connect()
+  {
     try {
-      $dsn = "mysql:host=".$this->dbServername.";dbname=".$this->dbName.";charset=".$this->charset;
+      $dsn = "mysql:host=" . $this->dbServername . ";dbname=" . $this->dbName . ";charset=" . $this->charset;
       $pdo = new PDO($dsn, $this->dbUsername, $this->dbPassword);
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       return $pdo;
-    }catch(PDOException $e) {
-      echo "Connection failed: ".$e->getMessage();
-    } 
+    } catch (PDOException $e) {
+      echo "Connection failed: " . $e->getMessage();
+    }
   }
 
-  public static function getAll() {
-    $request = new ItemRepo();
+  public static function getAll()
+  {
+    $request = new ItemRepository();
 
     $sql = "SELECT * FROM newitems";
     $result = $request->connect()->query($sql);
     $arr = array();
-    while($row = $result->fetch()) {
+    while ($row = $result->fetch()) {
 
-      switch($row['Type']) {
+      switch ($row['Type']) {
         case 1:
           $obj = new Dvd();
           $attrTag = "Size: ";
           break;
-        case 2: 
+        case 2:
           $obj = new Book();
           $attrTag = "Weight: ";
           break;
@@ -57,12 +62,12 @@ class ItemRepo extends ItemRepository
       $obj->setAttribute($row['Attribute']);
       array_push($arr, $obj);
     }
-      return $arr;
+    return $arr;
   }
-  
-  public static function setRow($item) {
-    // SQL send product to db
-    $request = new ItemRepo();
+
+  public static function setRow($item)
+  {
+    $request = new ItemRepository();
     $type = $item->getType();
     $sku = $item->getSku();
     $name = $item->getName();
@@ -78,7 +83,7 @@ class ItemRepo extends ItemRepository
 
   public static function deleteById($delValues)
   {
-    $request = new ItemRepo();
+    $request = new ItemRepository();
     $sql = "DELETE FROM newitems WHERE ID in ($delValues)";
     $request->connect()->query($sql);
   }

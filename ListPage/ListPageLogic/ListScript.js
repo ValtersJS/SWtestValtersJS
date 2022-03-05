@@ -7,7 +7,8 @@ $(document).ready(function () {
       .get()
       .join(', ');
     const delValues = (selectedValues);
-    $.post("FrontController.php", {
+    $.post("../Core/FrontController.php", 
+    {
       delValues: delValues
     }, function (status) {
       console.log(status, delValues);

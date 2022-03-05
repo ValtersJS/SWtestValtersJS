@@ -1,10 +1,14 @@
 <?php
-include_once 'C:\xampp\htdocs\swtest_v1\Item.php';
 
-class Book extends Item {
+namespace App\ListPage\Items;
+
+use App\ListPage\Items;
+
+class Book extends Item
+{
   protected $weight;
 
-  public function save($type, $sku, $name, $price, $weight) 
+  public function save($type, $sku, $name, $price, $weight)
   {
     $this->setType($type);
     $this->setSku($sku);

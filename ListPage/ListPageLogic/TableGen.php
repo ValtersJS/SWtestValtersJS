@@ -1,11 +1,16 @@
 <?php
-require_once 'ItemRepo.php';
 
-class TableGen 
+namespace App\ListPage\ListPageLogic;
+
+use App\Core\ItemRepository;
+
+include_once "..\Core\ItemRepository.php";
+
+class TableGen
 {
   public static function genTable()
   {
-    $items = ItemRepo::getAll();
+    $items = ItemRepository::getAll();
 
     echo "<table class='itemTable' id='table'>";
     $i = 0;
@@ -34,7 +39,7 @@ class TableGen
 
   public static function genTablee()
   {
-    $items = ItemRepo::getAll();
+    $items = ItemRepository::getAll();
 
     echo "<table class='itemTable' id='table'>";
     $i = 0;

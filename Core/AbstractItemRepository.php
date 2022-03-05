@@ -1,10 +1,15 @@
 <?php
-include_once "Item.php";
-include_once "Repository.php";
 
-abstract class ItemRepository implements Repository
+namespace App\Core;
+
+use App\Core\InterfaceItemRepository;
+
+include_once "InterfaceItemRepository.php";
+
+abstract class AbstractItemRepository implements InterfaceItemRepository
 {
-  public function __construct() {
+  public function __construct()
+  {
     $this->dbServername = "localhost";
     $this->dbUsername = "root";
     $this->dbPassword = "";
@@ -17,8 +22,6 @@ abstract class ItemRepository implements Repository
   public static abstract function getAll();
 
   public static abstract function deleteById($delValues);
-  
-  protected static abstract function setRow($item);
+
+  public static abstract function setRow($item);
 }
-
-
