@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ListPage;
+namespace App;
 
 use App\ListPage\ListPageLogic\TableGen;
 ?>
@@ -28,16 +28,16 @@ use App\ListPage\ListPageLogic\TableGen;
 
     <div class="header-buttons">
       <input type="button" class="Add" onclick="location.href=
-        '../AddPage/IndexTwo.php';" value="Add" />
+        'AddPage/IndexTwo.php';" value="Add" />
       <button>MASS DELETE</button>
     </div>
 
     <div class="content">
       <?php
-      include_once "ListPageLogic\TableGen.php";
+      include_once "ListPage\ListPageLogic\TableGen.php";
       TableGen::genTable();
       ?>
-      <script src="ListPageLogic/ListScript.js"></script>
+      <script src="ListPage/ListPageLogic/ListScript.js"></script>
 
     </div>
 

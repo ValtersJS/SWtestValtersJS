@@ -5,15 +5,17 @@ $(document).ready(function () {
         return $(this).val();
       })
       .get()
-      .join(', ');
-    const delValues = (selectedValues);
-    $.post("../Core/FrontController.php", 
-    {
-      delValues: delValues
-    }, function (status) {
-      console.log(status, delValues);
-      if (delValues != "")
-        location.reload();
-    });
+      .join(", ");
+    const delValues = selectedValues;
+    $.post(
+      "Core/FrontController.php",
+      {
+        delValues: delValues,
+      },
+      function (status) {
+        console.log(status, delValues);
+        if (delValues != "") location.reload();
+      }
+    );
   });
 });

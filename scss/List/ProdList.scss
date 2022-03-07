@@ -1,7 +1,7 @@
-@import "./variables";
+@use "./variables";
 
 @function weight($weight-name) {
-  @return map-get($font-weights, $weight-name);
+  @return map-get(variables.$font-weights, $weight-name);
 }
 
 * {
@@ -101,8 +101,6 @@ input:hover, button:hover {
   grid-column: 1/3;
   padding-top: 10px;
   padding-bottom: 100px;
-  
-  
 }
 
 .itemTable {

@@ -1,6 +1,5 @@
 <?php
 namespace App\Core;
-// include_once 'C:\xampp\htdocs\swtest_v1\Funcs.php';
 
 interface InterfaceItemRepository
 {

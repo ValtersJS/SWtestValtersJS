@@ -237,7 +237,7 @@ $("#product_form").submit(function (e) {
           console.log("all good");
           console.log(isValid);
           console.log(product);
-          window.location.href = "../Listpage/Index.php";
+          window.location.href = "../Index.php";
         }
       ).fail(function () {
         console.log("fail");

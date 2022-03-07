@@ -6,10 +6,10 @@ use App\Core\ItemRepository;
 use App\ListPage\Items\{Item, Dvd, Book, Furniture};
 
 include_once "ItemRepository.php";
-include_once "..\ListPage\Items\Item.php";
-include_once "..\ListPage\Items\Dvd.php";
-include_once "..\ListPage\Items\Book.php";
-include_once "..\ListPage\Items\Furniture.php";
+include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Item.php";
+include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Dvd.php";
+include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Book.php";
+include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Furniture.php";
 
 switch (isset($_POST)) {
   case isset($_POST['product']):

@@ -2,14 +2,17 @@
 
 namespace App\Core;
 
-use App\Core\AbstractItemRepository, PDO, PDOException;
+use App\Core\AbstractItemRepository;
+use PDO;
+use PDOException;
 use App\ListPage\Items\{Item, Dvd, Book, Furniture};
 
 include_once "AbstractItemRepository.php";
-include_once "..\ListPage\Items\Item.php";
-include_once "..\ListPage\Items\Dvd.php";
-include_once "..\ListPage\Items\Book.php";
-include_once "..\ListPage\Items\Furniture.php";
+include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Item.php";
+include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Dvd.php";
+include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Book.php";
+include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Furniture.php";
+
 
 class ItemRepository extends AbstractItemRepository
 {
@@ -39,7 +42,6 @@ class ItemRepository extends AbstractItemRepository
     $result = $request->connect()->query($sql);
     $arr = array();
     while ($row = $result->fetch()) {
-
       switch ($row['Type']) {
         case 1:
           $obj = new Dvd();

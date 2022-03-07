@@ -4,7 +4,7 @@ namespace App\ListPage\ListPageLogic;
 
 use App\Core\ItemRepository;
 
-include_once "..\Core\ItemRepository.php";
+include_once "Core\ItemRepository.php";
 
 class TableGen
 {
