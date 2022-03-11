@@ -197,19 +197,23 @@ window.onload = function hide() {
   $(".product").hide();
 };
 
+function classLookup() {
+
+}
+
 function makeProduct(productType) {
   var skuField = $("#sku").val().trim();
   var nameField = $("#name").val().trim();
   var priceField = $("#price").val().trim();
 
-  switch (productType) {
-    case "DVD":
-      return new DVD(skuField, nameField, priceField);
-    case "Book":
-      return new Book(skuField, nameField, priceField);
-    case "Furniture":
-      return new Furniture(skuField, nameField, priceField);
-  }
+  const types = new Map([
+    ["DVD" , new DVD(skuField, nameField, priceField)],
+    ["Book" , new Book(skuField, nameField, priceField)],
+    ["Furniture" , new Furniture(skuField, nameField, priceField)]
+  ]);
+
+  var result = types.get(productType);
+  return result;
 }
 
 //dynamic form switching
