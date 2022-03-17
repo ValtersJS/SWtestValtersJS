@@ -36,7 +36,7 @@ class ItemRepository extends AbstractItemRepository
   {
     $request = new ItemRepository();
 
-    $sql = "SELECT * FROM newitems";
+    $sql = "SELECT ID, Type, Sku, Name, Price, Attribute FROM newitems";
     $result = $request->connect()->query($sql);
     $arr = array();
 

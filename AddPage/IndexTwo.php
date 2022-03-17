@@ -19,7 +19,7 @@
 
     <div class="header-buttons">
       <input type="submit" class="Save" form="product_form" value="Save">
-      <input type="button" class="Cancel" onclick="location.href='../ListPage/Index.php';" value="Cancel" />
+      <input type="button" class="Cancel" onclick="location.href='../Index.php';" value="Cancel" />
     </div>
 
     <div class="content">
