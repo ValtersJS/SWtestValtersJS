@@ -1,18 +1,22 @@
 <?php
 
-namespace App\ListPage\Items;
+namespace ListPage\Items;
 
 class Dvd extends Item
 {
   protected $size;
 
-  public function save($type, $sku, $name, $price, $size)
+  function __construct($type, $sku, $name, $price, $size)
   {
     $this->setType($type);
     $this->setSku($sku);
     $this->setName($name);
     $this->setPrice($price);
     $this->setAttribute($size);
-    return $this;
   }
+
+  // function __construct()
+  // {
+    
+  // }
 }

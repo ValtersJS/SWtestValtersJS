@@ -3,6 +3,7 @@ class Item {
     this.sku = sku;
     this.name = name;
     this.price = price + "$";
+    var postLocation;
   }
 
   emptyCheck(value) {
@@ -119,6 +120,7 @@ class DVD extends Item {
     super(sku, name, price);
     this.size = $("#size").val().trim();
     this.type = 1;
+    this.postLocation = "../Core/Controller/DvdController.php"; 
   }
 
   validate() {
@@ -142,6 +144,7 @@ class Book extends Item {
     super(sku, name, price);
     this.weight = $("#weight").val().trim();
     this.type = 2;
+    this.postLocation = "../Core/Controller/BookController.php"; 
   }
 
   validate() {
@@ -161,12 +164,14 @@ class Book extends Item {
 }
 
 class Furniture extends Item {
-  constructor(sku, name, price, width, height, length, type) {
+  constructor(sku, name, price, dimensions, type) {
     super(sku, name, price);
     this.width = $("#width").val().trim();
     this.height = $("#height").val().trim();
     this.length = $("#length").val().trim();
+    this.dimensions = "Dimensions: " + this.height + "x" + this.width + "x" + this.length;
     this.type = 3;
+    this.postLocation = "../Core/Controller/FurnitureController.php"; 
   }
 
   validate() {
@@ -221,7 +226,7 @@ $("#productType").change(function () {
   window.type = this.value;
   $(".product").hide();
   $("#" + "type_" + this.value).show();
-});
+}); 
 
 //product save button (on click) function
 $("#product_form").submit(function (e) {
@@ -229,10 +234,11 @@ $("#product_form").submit(function (e) {
   if(typeof type != "undefined") {
     var product = makeProduct(type);
     var isValid = product.prepare();
+    console.log(product.postLocation);
 
     if (isValid) {
       $.post(
-        "../Core/FrontController.php",
+        product.postLocation,
         {
           product: JSON.stringify(product),
         },

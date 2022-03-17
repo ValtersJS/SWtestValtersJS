@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ListPage\Items;
+namespace ListPage\Items;
 
 class Item
 {
@@ -10,6 +10,15 @@ class Item
   protected $name;
   protected $price;
   protected $attribute;
+
+  function __construct($type, $sku, $name, $price, $attribute)
+  {
+    $this->setType($type);
+    $this->setSku($sku);
+    $this->setName($name);
+    $this->setPrice($price);
+    $this->setAttribute($attribute);
+  }
 
   public function getId()
   {

@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Core;
+namespace Core\Repository;
 
-use App\Core\InterfaceItemRepository;
+use Core\Repository\InterfaceItemRepository;
 
-include_once "InterfaceItemRepository.php";
+// include "C:/xampp/htdocs/swtest_v1/AutoLoader.php";
+
+// include_once "InterfaceItemRepository.php";
 
 abstract class AbstractItemRepository implements InterfaceItemRepository
 {
@@ -14,7 +16,6 @@ abstract class AbstractItemRepository implements InterfaceItemRepository
     $this->dbUsername = "root";
     $this->dbPassword = "";
     $this->dbName = "swtestdb";
-    // $charset = "utf8mb4";
   }
 
   public abstract function connect();

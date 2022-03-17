@@ -1,8 +1,7 @@
 <?php
 
-namespace App;
+use ListPage\ListPageLogic\TableGen;
 
-use App\ListPage\ListPageLogic\TableGen;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,13 +27,19 @@ use App\ListPage\ListPageLogic\TableGen;
 
     <div class="header-buttons">
       <input type="button" class="Add" onclick="location.href=
-        'AddPage/IndexTwo.php';" value="Add" />
+        'AddPage/IndexTwo.php';" value="ADD" />
       <button>MASS DELETE</button>
     </div>
 
     <div class="content">
       <?php
-      include_once "ListPage\ListPageLogic\TableGen.php";
+      // include_once "ListPage\ListPageLogic\TableGen.php";
+      include "AutoLoader.php";
+
+      // spl_autoload_register(function ($class) {
+      //   include_once str_replace('\\', '/', $class) . '.php';
+      // });
+
       TableGen::genTable();
       ?>
       <script src="ListPage/ListPageLogic/ListScript.js"></script>

@@ -1,20 +1,19 @@
 <?php
 
-namespace App\ListPage\Items;
+namespace ListPage\Items;
 
-use App\ListPage\Items;
+use ListPage\Items;
 
 class Book extends Item
 {
   protected $weight;
-
-  public function save($type, $sku, $name, $price, $weight)
+  
+  function __construct($type, $sku, $name, $price, $weight)
   {
     $this->setType($type);
     $this->setSku($sku);
     $this->setName($name);
     $this->setPrice($price);
     $this->setAttribute($weight);
-    return $this;
   }
 }

@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Core;
+namespace Core\Repository;
 
-use App\Core\AbstractItemRepository;
+use Core\Repository\AbstractItemRepository;
 use PDO;
 use PDOException;
-use App\ListPage\Items\{Item, Dvd, Book, Furniture};
+use ListPage\Items\Item;
 
-include_once "AbstractItemRepository.php";
-include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Item.php";
-include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Dvd.php";
-include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Book.php";
-include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Furniture.php";
+// include "C:/xampp/htdocs/swtest_v1/AutoLoader.php";
 
+// include_once "AbstractItemRepository.php";
+// include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Item.php";
 
 class ItemRepository extends AbstractItemRepository
 {
@@ -41,27 +39,10 @@ class ItemRepository extends AbstractItemRepository
     $sql = "SELECT * FROM newitems";
     $result = $request->connect()->query($sql);
     $arr = array();
-    while ($row = $result->fetch()) {
-      switch ($row['Type']) {
-        case 1:
-          $obj = new Dvd();
-          $attrTag = "Size: ";
-          break;
-        case 2:
-          $obj = new Book();
-          $attrTag = "Weight: ";
-          break;
-        case 3:
-          $obj = new Furniture();
-          $attrTag = "Dimensions: ";
-          break;
-      }
 
+    while ($row = $result->fetch()) {
+      $obj = new Item($row['Type'], $row['Sku'], $row['Name'], $row['Price'], $row['Attribute']);
       $obj->setId($row['ID']);
-      $obj->setSKU($row['Sku']);
-      $obj->setName($row['Name']);
-      $obj->setPrice($row['Price']);
-      $obj->setAttribute($row['Attribute']);
       array_push($arr, $obj);
     }
     return $arr;

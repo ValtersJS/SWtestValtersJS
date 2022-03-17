@@ -17,25 +17,19 @@ switch (isset($_POST)) {
     $product = json_decode($productJSON);
     switch ($product->{'type'}) {
       case 1:
-        $obj = new Dvd();
-        $item = $obj->save($product->{'type'}, $product->{'sku'}, $product->{'name'}, $product->{'price'}, $product->{'size'});
+        $item = new Dvd($product->{'type'}, $product->{'sku'}, $product->{'name'}, $product->{'price'}, $product->{'size'});
         ItemRepository::setRow($item);
         break;
       case 2:
-        $obj = new Book();
-        $item = $obj->save($product->{'type'}, $product->{'sku'}, $product->{'name'}, $product->{'price'}, $product->{'weight'});
+        $item = new Book($product->{'type'}, $product->{'sku'}, $product->{'name'}, $product->{'price'}, $product->{'weight'});
         ItemRepository::setRow($item);
         break;
       case 3:
-        $obj = new Furniture();
-        $item = $obj->save(
-          $product->{'type'},
+        $item = new Furniture($product->{'type'},
           $product->{'sku'},
           $product->{'name'},
           $product->{'price'},
-          $product->{'height'},
-          $product->{'width'},
-          $product->{'length'}
+          $product->{'dimensions'}
         );
         ItemRepository::setRow($item);
         break;

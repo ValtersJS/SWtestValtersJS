@@ -1,10 +1,12 @@
 <?php
 
-namespace App\ListPage\ListPageLogic;
+namespace ListPage\ListPageLogic;
 
-use App\Core\ItemRepository;
+use Core\Repository\ItemRepository;
 
-include_once "Core\ItemRepository.php";
+include "AutoLoader.php";
+
+// include_once "Core\Repository\ItemRepository.php";
 
 class TableGen
 {
