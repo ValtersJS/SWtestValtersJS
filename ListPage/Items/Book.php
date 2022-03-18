@@ -2,7 +2,7 @@
 
 namespace ListPage\Items;
 
-use ListPage\Items;
+// use ListPage\Items;
 
 class Book extends Item
 {
