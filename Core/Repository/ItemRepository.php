@@ -7,11 +7,6 @@ use PDO;
 use PDOException;
 use ListPage\Items\Item;
 
-// include "C:/xampp/htdocs/swtest_v1/AutoLoader.php";
-
-// include_once "AbstractItemRepository.php";
-// include_once "C:/xampp/htdocs/swtest_v1/ListPage/Items/Item.php";
-
 class ItemRepository extends AbstractItemRepository
 {
   protected $dbServername;

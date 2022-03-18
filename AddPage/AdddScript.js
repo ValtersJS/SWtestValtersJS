@@ -40,12 +40,13 @@ class Item {
     var widthField = $("#width").val().trim();
     var lengthField = $("#length").val().trim();
     var dimensionValid = new RegExp("^\\d{1,4}$");
-    var i = 0;
+    let i = 0;
   
     $("#type_Furniture input").each(function () {
       if (dimensionValid.test($(this).val().trim())) {
         i++;
         $(this).removeClass("validation");
+        return true;
       } else {
         $(this).addClass("validation");
       }
@@ -180,7 +181,7 @@ class Furniture extends Item {
     (!isHeightEmpty) ? $("#Height-mistake").show() : $("#Height-mistake").hide();
     (!isLengthEmpty) ? $("#Length-mistake").show() : $("#Length-mistake").hide();
 
-    return isParentValid && isWidthEmpty && isHeightEmpty && isLengthEmpty;
+    return isParentValid && isWidthEmpty && isHeightEmpty && isLengthEmpty && isDimensionCorrect;
   }
 
   prepare() {
