@@ -6,8 +6,6 @@ use Core\Repository\ItemRepository;
 
 include "AutoLoader.php";
 
-// include_once "Core\Repository\ItemRepository.php";
-
 class TableGen
 {
   public static function genTable()

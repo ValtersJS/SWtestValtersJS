@@ -33,14 +33,10 @@ use ListPage\ListPageLogic\TableGen;
 
     <div class="content">
       <?php
-      // include_once "ListPage\ListPageLogic\TableGen.php";
+
       include "AutoLoader.php";
-
-      // spl_autoload_register(function ($class) {
-      //   include_once str_replace('\\', '/', $class) . '.php';
-      // });
-
       TableGen::genTable();
+      
       ?>
       <script src="ListPage/ListPageLogic/ListScript.js"></script>
 

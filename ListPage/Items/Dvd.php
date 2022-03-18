@@ -14,9 +14,4 @@ class Dvd extends Item
     $this->setPrice($price);
     $this->setAttribute($size);
   }
-
-  // function __construct()
-  // {
-    
-  // }
 }
